@@ -1,0 +1,22 @@
+<package>
+  <description brief="octomap_msgs - conversions and messages for OctoMap">
+
+  octomap_msgs - conversions and messages for OctoMap
+
+  </description>
+  <author>Armin Hornung</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/octomap_msgs</url>
+  
+  <export>
+    <cpp cflags="-I${prefix}/include"  lflags="-L${prefix}/lib -Wl,-rpath,${prefix}/lib -loctomap_msgs"/>
+  </export>
+  
+  <depend package="std_msgs"/>
+  
+  <rosdep name="octomap" />
+
+</package>
+
+
