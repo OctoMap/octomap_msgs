@@ -10,7 +10,7 @@
   <url>http://ros.org/wiki/octomap_msgs</url>
   
   <export>
-    <cpp cflags="-I${prefix}/include"/>
+    <cpp cflags="-I${prefix}/include -DOCTOMAP_NODEBUGOUT"/>
   </export>
   
   <depend package="std_msgs"/>
