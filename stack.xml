@@ -1,8 +1,8 @@
 <stack>
   <version>0.1.1</version>
-  <description brief="Stack for the OctoMap-related messages">
-    This provides messages for the <a href="http://octomap.sourceforge.net/">OctoMap library</a>.
-    
+  <description brief="octomap_msgs - conversions and messages for OctoMap">
+   This low-dependency stacks provides messages and basic conversions for 
+    the <a href="http://octomap.sourceforge.net/">OctoMap library</a>.    
   </description>
   <author>Maintained by Armin Hornung</author>
   <license>BSD</license>  
