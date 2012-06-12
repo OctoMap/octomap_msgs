@@ -5,8 +5,8 @@
    This low-dependency stacks provides messages and basic conversions for 
     the <a href="http://octomap.sourceforge.net/">OctoMap library</a>.    
   </description>
-  <author>Armin Hornung</author>
-  <maintainer>Armin Hornung</maintainer>
+  <author email="HornungA@informatik.uni-freiburg.de">Armin Hornung</author>
+  <maintainer email="HornungA@informatik.uni-freiburg.de">Armin Hornung</maintainer>
 
   <license>BSD</license>  
   <copyright>Armin Hornung</copyright>
