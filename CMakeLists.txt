@@ -1,33 +1,33 @@
-cmake_minimum_required(VERSION 2.4.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+cmake_minimum_required(VERSION 2.8)
+project(octomap_msgs)
 
-# Set the build type.  Options are:
-#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
-#  Debug          : w/ debug symbols, w/o optimization
-#  Release        : w/o debug symbols, w/ optimization
-#  RelWithDebInfo : w/ debug symbols, w/ optimization
-#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-#set(ROS_BUILD_TYPE RelWithDebInfo)
+find_package(catkin REQUIRED)
+find_package(ROS REQUIRED COMPONENTS genmsg)
 
-rosbuild_init()
+catkin_stack()
+catkin_project(octomap_msgs
+  INCLUDE_DIRS include)
 
-find_package(octomap REQUIRED)
-include_directories(${OCTOMAP_INCLUDE_DIRS})
-link_directories(${OCTOMAP_LIBRARY_DIRS})
-link_libraries(${PROJECT_NAME} ${OCTOMAP_LIBRARIES})
+include_directories(include)
 
-#set the default path for built executables to the "bin" directory
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+add_message_files(
+  DIRECTORY msg
+  FILES OctomapBinary.msg OctomapBinaryWithPose.msg
+  )
 
-rosbuild_genmsg()
-rosbuild_gensrv()
+add_service_files(
+  DIRECTORY srv
+  FILES GetOctomap.srv BoundingBoxQuery.srv
+)
 
+find_package(std_msgs)
+find_package(geometry_msgs)
+generate_messages(DEPENDENCIES std_msgs geometry_msgs)
 
+install(DIRECTORY include/
+        DESTINATION include
+        FILES_MATCHING PATTERN "*.h"
+        PATTERN ".svn" EXCLUDE)
 
-
-#rosbuild_add_library(${PROJECT_NAME} src/conversions.cpp)
-#rosbuild_add_executable(test_octomap_ros src/test_octomap_ros.cpp)
-
-
+install(FILES manifest-to-install.xml
+        DESTINATION share/octomap_msgs RENAME manifest.xml)

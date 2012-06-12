@@ -13,9 +13,7 @@
   <depend package="geometry_msgs"/>
   
   <export>
-    <cpp cflags="-I${prefix}/include -I${prefix}/build/gen/cpp"/>
+    <cpp cflags="`PKG_CONFIG_PATH=${prefix}/../../lib/pkgconfig pkg-config --cflags octomap_msgs`"/>
   </export>
 
 </package>
-
-

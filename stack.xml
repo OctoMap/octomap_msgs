@@ -1,13 +1,24 @@
 <stack>
-  <version>0.1.1</version>
+  <name>octomap_msgs</name>
+  <version>0.1.2</version>
   <description brief="octomap_msgs - conversions and messages for OctoMap">
    This low-dependency stacks provides messages and basic conversions for 
     the <a href="http://octomap.sourceforge.net/">OctoMap library</a>.    
   </description>
-  <author>Maintained by Armin Hornung</author>
+  <author>Armin Hornung</author>
+  <maintainer>Armin Hornung</maintainer>
+
   <license>BSD</license>  
-  <review status="unreviewed" notes=""/>
+  <copyright>Armin Hornung</copyright>
   <url>http://ros.org/wiki/octomap_msgs</url>
-  <depend stack="common_msgs" /> 
+  
+  <review status="unreviewed" notes=""/>
+
+  <build_depends>catkin</build_depends>
+  <build_depends>genmsg</build_depends>
+  <build_depends>langs</build_depends>
+  <build_depends>common_msgs</build_depends>
+  
+  <depends>common_msgs</depends> 
 
 </stack>
