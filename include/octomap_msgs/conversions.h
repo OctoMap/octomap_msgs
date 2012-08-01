@@ -1,7 +1,7 @@
 // $Id$
 
 /**
- * OctoMap ROS integration
+ * OctoMap ROS message conversions / [de-] serialization
  *
  * @author A. Hornung, University of Freiburg, Copyright (C) 2011-2012.
  * @see http://www.ros.org/wiki/octomap_ros
@@ -43,60 +43,105 @@
 #include <octomap/octomap.h>
 #include <octomap_msgs/OctomapBinary.h>
 
+// new conversion functions  
+namespace octomap_msgs{
+  static inline octomap::AbstractOcTree* fullMsgDataToMap(const std::vector<int8_t>& mapData){
+    std::stringstream datastream;
+    assert(mapData.size() > 0);
+    datastream.write((const char*) &mapData[0], mapData.size());
+    return octomap::AbstractOcTree::read(datastream);
+  }
+  
+  static inline octomap::OcTree* binaryMsgDataToMap(const std::vector<int8_t>& mapData){
+    octomap::OcTree* octree = new octomap::OcTree(0.1);
+    std::stringstream datastream;
+    assert(mapData.size() > 0);
+    datastream.write((const char*) &mapData[0], mapData.size());
+    octree->readBinary(datastream);
+    return octree;
+  }
+  
+  // conversions via stringstream
+  
+  // TODO: read directly into buffer? see
+  // http://stackoverflow.com/questions/132358/how-to-read-file-content-into-istringstream
+  
+  template <class OctomapT>
+  static inline bool binaryMapToMsgData(const OctomapT& octomap, std::vector<int8_t>& mapData){
+    std::stringstream datastream;
+    if (!octomap.writeBinaryConst(datastream))
+      return false;
+    
+    std::string datastring = datastream.str();
+    mapData = std::vector<int8_t>(datastring.begin(), datastring.end());
+    return true;
+  }
+  
+  template <class OctomapT>
+  static inline bool fullMapToMsgData(const OctomapT& octomap, std::vector<int8_t>& mapData){
+    std::stringstream datastream;
+    if (!octomap.write(datastream))
+      return false;
+    
+    std::string datastring = datastream.str();
+    mapData = std::vector<int8_t>(datastring.begin(), datastring.end());
+    return true;
+  }
+
+}
+
+// deprecated old conversion functions, use the ones above instead!
 namespace octomap {
   /**
-   * @brief Converts an octomap map structure to a ROS octomap msg as binary data.
-   * This will fill the timestamp of the header with the current time, but will
-   * not fill in the frame_id.
-   *
-   * @param octomap input OcTree
-   * @param mapMsg output msg
+   * @brief Deprecated, use octomap_msgs::binaryMapToMsgData() instead
    */
+  template <class OctomapT>
+  static inline void octomapMapToMsg(const OctomapT& octomap, octomap_msgs::OctomapBinary& mapMsg) __attribute__ ((deprecated));
+  
   template <class OctomapT>
   static inline void octomapMapToMsg(const OctomapT& octomap, octomap_msgs::OctomapBinary& mapMsg){
     mapMsg.header.stamp = ros::Time::now();
-
+    
     octomapMapToMsgData(octomap, mapMsg.data);
   }
-
-   /**
-    * @brief Converts an octomap map structure to a ROS binary data, which can be
-    * put into a dedicated octomap msg.
-    *
-    * @param octomap input OcTree
-    * @param mapData binary output data as int8[]
-    */
+  
+  /**
+   * @brief Deprecated, use octomap_msgs::binaryMapToMsgData() instead
+   */
+  template <class OctomapT>
+  static inline void octomapMapToMsgData(const OctomapT& octomap, std::vector<int8_t>& mapData) __attribute__ ((deprecated));
+  
   template <class OctomapT>
   static inline void octomapMapToMsgData(const OctomapT& octomap, std::vector<int8_t>& mapData){
-	  // conversion via stringstream
-
-	  // TODO: read directly into buffer? see
-	  // http://stackoverflow.com/questions/132358/how-to-read-file-content-into-istringstream
-	  std::stringstream datastream;
-	  octomap.writeBinaryConst(datastream);
-	  std::string datastring = datastream.str();
-	  mapData = std::vector<int8_t>(datastring.begin(), datastring.end());
+    // conversion via stringstream
+    
+    // TODO: read directly into buffer? see
+    // http://stackoverflow.com/questions/132358/how-to-read-file-content-into-istringstream
+    std::stringstream datastream;
+    octomap.writeBinaryConst(datastream);
+    std::string datastring = datastream.str();
+    mapData = std::vector<int8_t>(datastring.begin(), datastring.end());
   }
-
-
+  
+  
   /**
-   * @brief Converts a ROS octomap msg (binary data) to an octomap map structure
-   *
-   * @param mapMsg
-   * @param octomap
+   * @brief Deprecated, use octomap_msgs::binaryMsgDataToMap() instead
    */
   template <class OctomapT>
-  static inline void octomapMsgToMap(const octomap_msgs::OctomapBinary& mapMsg, OctomapT& octomap){
-	  octomapMsgDataToMap(mapMsg.data, octomap);
+  static inline void octomapMsgToMap(const octomap_msgs::OctomapBinary& mapMsg, OctomapT& octomap) __attribute__ ((deprecated));
+  
+  template <class OctomapT>
+  static inline void octomapMsgToMap(const octomap_msgs::OctomapBinary& mapMsg, OctomapT& octomap) {
+    octomapMsgDataToMap(mapMsg.data, octomap);
   }
-
+  
   /**
-   * @brief Converts ROS binary data to an octomap map structure, e.g. coming from an
-   * octomap msg
-   *
-   * @param mapData input binary data
-   * @param octomap output OcTree
+   * @brief Deprecated, use octomap_msgs::binaryMsgDataToMap() instead
    */
+  template <class OctomapT>
+  static inline void octomapMsgDataToMap(const std::vector<int8_t>& mapData, OctomapT& octomap) __attribute__ ((deprecated));
+  
+  
   template <class OctomapT>
   static inline void octomapMsgDataToMap(const std::vector<int8_t>& mapData, OctomapT& octomap){
     std::stringstream datastream;
@@ -104,7 +149,6 @@ namespace octomap {
     datastream.write((const char*) &mapData[0], mapData.size());
     octomap.readBinary(datastream);
   }
-
 }
 
 
