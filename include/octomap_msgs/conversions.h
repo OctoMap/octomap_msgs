@@ -45,6 +45,12 @@
 
 // new conversion functions  
 namespace octomap_msgs{
+  /**
+   * @brief Creates a new octree by deserializing from the binary stream mapData,
+   * e.g. from a message or service (full probabilities, .ot file format).
+   * This calls the general file factory of OctoMap, creates a new object and
+   * return an AbstractOcTree* to it. You will need to free the memory when you're done.
+   */  
   static inline octomap::AbstractOcTree* fullMsgDataToMap(const std::vector<int8_t>& mapData){
     std::stringstream datastream;
     assert(mapData.size() > 0);
@@ -52,6 +58,12 @@ namespace octomap_msgs{
     return octomap::AbstractOcTree::read(datastream);
   }
   
+  /**
+   * @brief Creates a new octree by deserializing from the binary stream mapData,
+   * e.g. from a message or service (binary: only free and occupied .bt file format).
+   * This creates a new OcTree object and returns a pointer to it. 
+   * You will need to free the memory when you're done.
+   */  
   static inline octomap::OcTree* binaryMsgDataToMap(const std::vector<int8_t>& mapData){
     octomap::OcTree* octree = new octomap::OcTree(0.1);
     std::stringstream datastream;
@@ -66,6 +78,13 @@ namespace octomap_msgs{
   // TODO: read directly into buffer? see
   // http://stackoverflow.com/questions/132358/how-to-read-file-content-into-istringstream
   
+  /**
+   * @brief Serialization of an octree into binary data e.g. for messages and services.
+   * Compact binary version (stores only max-likelihood free or occupied, .bt file format).
+   * The data will be much smaller if you call octomap.toMaxLikelihood() and octomap.prune()
+   * before.
+   * @return success of serialization
+   */
   template <class OctomapT>
   static inline bool binaryMapToMsgData(const OctomapT& octomap, std::vector<int8_t>& mapData){
     std::stringstream datastream;
@@ -77,6 +96,13 @@ namespace octomap_msgs{
     return true;
   }
   
+  /**
+   * @brief Serialization of an octree into binary data e.g. for messages and services.
+   * Full probability version (stores complete state of tree, .ot file format).
+   * The data will be much smaller if you call octomap.toMaxLikelihood() and octomap.prune()
+   * before.
+   * @return success of serialization
+   */
   template <class OctomapT>
   static inline bool fullMapToMsgData(const OctomapT& octomap, std::vector<int8_t>& mapData){
     std::stringstream datastream;
