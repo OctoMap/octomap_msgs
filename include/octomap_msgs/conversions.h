@@ -60,7 +60,7 @@ namespace octomap_msgs{
   
   
   static inline octomap::AbstractOcTree* fullMsgToMap(const OctomapBinary& msg){
-    AbstractOcTree* tree = createTree(msg.id, msg.resolution);    
+    octomap::AbstractOcTree* tree = octomap::AbstractOcTree::createTree(msg.id, msg.resolution);    
     if (tree){
       std::stringstream datastream;
       assert(msg.data.size() > 0);
@@ -96,8 +96,7 @@ namespace octomap_msgs{
     std::stringstream datastream;
     assert(msg.data.size() > 0);
     datastream.write((const char*) &msg.data[0], msg.data.size());
-    tree->readData(datastream);          
-    
+    octree->readData(datastream);          
     
     return octree;      
   }
