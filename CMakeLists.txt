@@ -12,7 +12,7 @@ include_directories(include)
 
 add_message_files(
   DIRECTORY msg
-  FILES OctomapBinary.msg OctomapBinaryWithPose.msg
+  FILES Octomap.msg OctomapWithPose.msg
   )
 
 add_service_files(

@@ -41,7 +41,7 @@
 #define OCTOMAP_MSGS_CONVERT_MSGS_H
 
 #include <octomap/octomap.h>
-#include <octomap_msgs/OctomapBinary.h>
+#include <octomap_msgs/Octomap.h>
 
 // new conversion functions  
 namespace octomap_msgs{
@@ -59,7 +59,7 @@ namespace octomap_msgs{
   }
   
   
-  static inline octomap::AbstractOcTree* fullMsgToMap(const OctomapBinary& msg){
+  static inline octomap::AbstractOcTree* fullMsgToMap(const Octomap& msg){
     octomap::AbstractOcTree* tree = octomap::AbstractOcTree::createTree(msg.id, msg.resolution);    
     if (tree){
       std::stringstream datastream;
@@ -87,7 +87,7 @@ namespace octomap_msgs{
     return octree;
   }
   
-  static inline octomap::OcTree* binaryMsgToMap(const OctomapBinary& msg){
+  static inline octomap::OcTree* binaryMsgToMap(const Octomap& msg){
     if (msg.id != "OcTree"){
       ROS_WARN("Deserializing binary octree type %s, should be OcTree", msg.id.c_str()); 
     }
@@ -150,7 +150,7 @@ namespace octomap_msgs{
    * @return success of serialization
    */
   template <class OctomapT>
-  static inline bool binaryMapToMsg(const OctomapT& octomap, OctomapBinary& msg){
+  static inline bool binaryMapToMsg(const OctomapT& octomap, Octomap& msg){
     msg.resolution = octomap.getResolution();
     msg.id = octomap.getTreeType();
     msg.binary = true;
@@ -172,7 +172,7 @@ namespace octomap_msgs{
    * @return success of serialization
    */
   template <class OctomapT>
-  static inline bool fullMapToMsg(const OctomapT& octomap, OctomapBinary& msg){
+  static inline bool fullMapToMsg(const OctomapT& octomap, Octomap& msg){
     msg.resolution = octomap.getResolution();
     msg.id = octomap.getTreeType();
     msg.binary = false;
@@ -194,10 +194,10 @@ namespace octomap {
    * @brief Deprecated, use octomap_msgs::binaryMapToMsgData() instead
    */
   template <class OctomapT>
-  static inline void octomapMapToMsg(const OctomapT& octomap, octomap_msgs::OctomapBinary& mapMsg) __attribute__ ((deprecated));
+  static inline void octomapMapToMsg(const OctomapT& octomap, octomap_msgs::Octomap& mapMsg) __attribute__ ((deprecated));
   
   template <class OctomapT>
-  static inline void octomapMapToMsg(const OctomapT& octomap, octomap_msgs::OctomapBinary& mapMsg){
+  static inline void octomapMapToMsg(const OctomapT& octomap, octomap_msgs::Octomap& mapMsg){
     mapMsg.header.stamp = ros::Time::now();
     
     octomapMapToMsgData(octomap, mapMsg.data);
@@ -226,10 +226,10 @@ namespace octomap {
    * @brief Deprecated, use octomap_msgs::binaryMsgDataToMap() instead
    */
   template <class OctomapT>
-  static inline void octomapMsgToMap(const octomap_msgs::OctomapBinary& mapMsg, OctomapT& octomap) __attribute__ ((deprecated));
+  static inline void octomapMsgToMap(const octomap_msgs::Octomap& mapMsg, OctomapT& octomap) __attribute__ ((deprecated));
   
   template <class OctomapT>
-  static inline void octomapMsgToMap(const octomap_msgs::OctomapBinary& mapMsg, OctomapT& octomap) {
+  static inline void octomapMsgToMap(const octomap_msgs::Octomap& mapMsg, OctomapT& octomap) {
     octomapMsgDataToMap(mapMsg.data, octomap);
   }
   
