@@ -45,6 +45,15 @@
 
 // new conversion functions  
 namespace octomap_msgs{
+
+  /** \brief Convert an octomap representation to a new octree. You will need to free the memory. Return NULL on error. */
+  static inline octomap::AbstractOcTree* msgToMap(const Octomap& msg){
+    if (msg.binary)
+      return binaryMsgToMap(msg);
+    else
+      return fullMsgToMap(msg);
+  }
+
   /**
    * @brief Creates a new octree by deserializing from the binary stream mapData,
    * e.g. from a message or service (full probabilities, .ot file format).
@@ -58,7 +67,10 @@ namespace octomap_msgs{
     return octomap::AbstractOcTree::read(datastream);
   }
   
-  
+/**
+   * @brief Creates a new octree by deserializing from a message that contains the full map information (i.e., binary is false)
+   * return an AbstractOcTree* to it. You will need to free the memory when you're done.
+   */  
   static inline octomap::AbstractOcTree* fullMsgToMap(const Octomap& msg){
     octomap::AbstractOcTree* tree = octomap::AbstractOcTree::createTree(msg.id, msg.resolution);    
     if (tree){
@@ -75,7 +87,7 @@ namespace octomap_msgs{
    * @brief Creates a new octree by deserializing from the binary stream mapData,
    * e.g. from a message or service (binary: only free and occupied .bt file format).
    * This creates a new OcTree object and returns a pointer to it. 
-   * You will need to free the memory when you're done.
+   * You will need to free the memory when you're done. 
    */  
   static inline octomap::OcTree* binaryMsgDataToMap(const std::vector<int8_t>& mapData){
     octomap::OcTree* octree = new octomap::OcTree(0.1);
@@ -88,9 +100,8 @@ namespace octomap_msgs{
   }
   
   static inline octomap::OcTree* binaryMsgToMap(const Octomap& msg){
-    if (msg.id != "OcTree"){
-      ROS_WARN("Deserializing binary octree type %s, should be OcTree", msg.id.c_str()); 
-    }
+    if (msg.id != "OcTree" || !msg.binary)
+      return NULL;
     
     octomap::OcTree* octree = new octomap::OcTree(msg.resolution);    
     std::stringstream datastream;
