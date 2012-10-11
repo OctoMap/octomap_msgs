@@ -1,4 +1,4 @@
-<stack>
+<package>
   <name>octomap_msgs</name>
   <version>0.2.2</version>
   <description brief="octomap_msgs - conversions and messages for OctoMap">
@@ -14,11 +14,12 @@
   
   <review status="unreviewed" notes=""/>
 
-  <build_depends>catkin</build_depends>
-  <build_depends>genmsg</build_depends>
-  <build_depends>langs</build_depends>
-  <build_depends>common_msgs</build_depends>
+  <build_depend>catkin</build_depend>
+  <build_depend>genmsg</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>langs</build_depend>
+  <build_depend>std_msgs</build_depend>
   
-  <depends>common_msgs</depends> 
-
-</stack>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+</package>

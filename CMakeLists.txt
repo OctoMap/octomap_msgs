@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 2.8)
 project(octomap_msgs)
 
-find_package(catkin REQUIRED)
-find_package(ROS REQUIRED COMPONENTS genmsg)
+find_package(catkin REQUIRED REQUIRED COMPONENTS genmsg geometry_msgs std_msgs)
 
-catkin_stack()
-catkin_project(octomap_msgs
-  INCLUDE_DIRS include)
+catkin_package(DEPENDS geometry_msgs std_msgs
+               INCLUDE_DIRS include
+)
 
 include_directories(include)
 
@@ -20,14 +19,9 @@ add_service_files(
   FILES GetOctomap.srv BoundingBoxQuery.srv
 )
 
-find_package(std_msgs)
-find_package(geometry_msgs)
 generate_messages(DEPENDENCIES std_msgs geometry_msgs)
 
 install(DIRECTORY include/
         DESTINATION include
         FILES_MATCHING PATTERN "*.h"
         PATTERN ".svn" EXCLUDE)
-
-install(FILES manifest-to-install.xml
-        DESTINATION share/octomap_msgs RENAME manifest.xml)
