@@ -9,7 +9,7 @@
   <maintainer email="HornungA@informatik.uni-freiburg.de">Armin Hornung</maintainer>
 
   <license>BSD</license>  
-  <copyright>Armin Hornung</copyright>
+
   <url>http://ros.org/wiki/octomap_msgs</url>
 
   <build_depend>catkin</build_depend>
