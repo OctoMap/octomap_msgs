@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(octomap_msgs)
 
-find_package(catkin REQUIRED REQUIRED COMPONENTS genmsg geometry_msgs std_msgs)
+find_package(catkin REQUIRED COMPONENTS genmsg geometry_msgs std_msgs)
 
 include_directories(include)
 
