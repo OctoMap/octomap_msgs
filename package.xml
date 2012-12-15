@@ -12,6 +12,8 @@
 
   <url>http://ros.org/wiki/octomap_msgs</url>
 
+  <buildtool_depend>catkin</buildtool_depend>
+ 
   <build_depend>catkin</build_depend>
   <build_depend>genmsg</build_depend>
   <build_depend>geometry_msgs</build_depend>
