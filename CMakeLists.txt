@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(octomap_msgs)
 
-find_package(catkin REQUIRED COMPONENTS genmsg geometry_msgs std_msgs)
+find_package(catkin REQUIRED COMPONENTS message_generation geometry_msgs std_msgs)
 
 include_directories(include)
 
@@ -17,7 +17,7 @@ add_service_files(
 
 generate_messages(DEPENDENCIES std_msgs geometry_msgs)
 
-catkin_package(DEPENDS geometry_msgs std_msgs
+catkin_package(DEPENDS message_runtime geometry_msgs std_msgs
                INCLUDE_DIRS include
 )
 
