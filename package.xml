@@ -1,6 +1,6 @@
 <package>
   <name>octomap_msgs</name>
-  <version>0.2.6</version>
+  <version>0.2.7</version>
   <description>
    This package provides messages for the <a href="http://octomap.sourceforge.net/">OctoMap library</a>.    
   </description>
@@ -14,10 +14,8 @@
 
   <buildtool_depend>catkin</buildtool_depend>
  
-  <build_depend>catkin</build_depend>
   <build_depend>message_generation</build_depend>
   <build_depend>geometry_msgs</build_depend>
-  <build_depend>langs</build_depend>
   <build_depend>std_msgs</build_depend>
   
   <run_depend>geometry_msgs</run_depend>
