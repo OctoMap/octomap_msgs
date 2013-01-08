@@ -8,7 +8,7 @@ bool binary
 string id
 
 # Resolution (in m) of the smallest octree nodes
-int32 resolution
+float32 resolution
 
 # binary serialization of octree, use conversions.h to read and write octrees
 int8[] data

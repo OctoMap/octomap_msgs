@@ -99,7 +99,7 @@ namespace octomap_msgs{
     std::stringstream datastream;
     assert(msg.data.size() > 0);
     datastream.write((const char*) &msg.data[0], msg.data.size());
-    octree->readData(datastream);          
+    octree->readBinaryData(datastream);          
     
     return octree;      
   }

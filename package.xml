@@ -1,8 +1,8 @@
 <package>
   <name>octomap_msgs</name>
-  <version>0.2.7</version>
+  <version>0.2.8</version>
   <description>
-   This package provides messages for the <a href="http://octomap.sourceforge.net/">OctoMap library</a>.    
+   This package provides messages and serializations / conversion for the <a href="http://octomap.github.com">OctoMap library</a>.    
   </description>
 
   <author email="HornungA@informatik.uni-freiburg.de">Armin Hornung</author>
