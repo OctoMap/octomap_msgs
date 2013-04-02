@@ -1,15 +1,13 @@
-// $Id$
-
 /**
  * OctoMap ROS message conversions / [de-] serialization
  *
- * @author A. Hornung, University of Freiburg, Copyright (C) 2011-2012.
+ * @author A. Hornung, University of Freiburg, Copyright (C) 2011-2013.
  * @see http://www.ros.org/wiki/octomap_ros
  * License: BSD
  */
 
 /*
- * Copyright (c) 2011-2012, A. Hornung, University of Freiburg
+ * Copyright (c) 2011-2013, A. Hornung, University of Freiburg
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -197,67 +195,6 @@ namespace octomap_msgs{
     return true;
   }
 
-}
-
-// deprecated old conversion functions, use the ones above instead!
-namespace octomap {
-  /**
-   * @brief Deprecated, use octomap_msgs::binaryMapToMsgData() instead
-   */
-  template <class OctomapT>
-  static inline void octomapMapToMsg(const OctomapT& octomap, octomap_msgs::Octomap& mapMsg) __attribute__ ((deprecated));
-  
-  template <class OctomapT>
-  static inline void octomapMapToMsg(const OctomapT& octomap, octomap_msgs::Octomap& mapMsg){
-    mapMsg.header.stamp = ros::Time::now();
-    
-    octomapMapToMsgData(octomap, mapMsg.data);
-  }
-  
-  /**
-   * @brief Deprecated, use octomap_msgs::binaryMapToMsgData() instead
-   */
-  template <class OctomapT>
-  static inline void octomapMapToMsgData(const OctomapT& octomap, std::vector<int8_t>& mapData) __attribute__ ((deprecated));
-  
-  template <class OctomapT>
-  static inline void octomapMapToMsgData(const OctomapT& octomap, std::vector<int8_t>& mapData){
-    // conversion via stringstream
-    
-    // TODO: read directly into buffer? see
-    // http://stackoverflow.com/questions/132358/how-to-read-file-content-into-istringstream
-    std::stringstream datastream;
-    octomap.writeBinaryConst(datastream);
-    std::string datastring = datastream.str();
-    mapData = std::vector<int8_t>(datastring.begin(), datastring.end());
-  }
-  
-  
-  /**
-   * @brief Deprecated, use octomap_msgs::binaryMsgDataToMap() instead
-   */
-  template <class OctomapT>
-  static inline void octomapMsgToMap(const octomap_msgs::Octomap& mapMsg, OctomapT& octomap) __attribute__ ((deprecated));
-  
-  template <class OctomapT>
-  static inline void octomapMsgToMap(const octomap_msgs::Octomap& mapMsg, OctomapT& octomap) {
-    octomapMsgDataToMap(mapMsg.data, octomap);
-  }
-  
-  /**
-   * @brief Deprecated, use octomap_msgs::binaryMsgDataToMap() instead
-   */
-  template <class OctomapT>
-  static inline void octomapMsgDataToMap(const std::vector<int8_t>& mapData, OctomapT& octomap) __attribute__ ((deprecated));
-  
-  
-  template <class OctomapT>
-  static inline void octomapMsgDataToMap(const std::vector<int8_t>& mapData, OctomapT& octomap){
-    std::stringstream datastream;
-    assert(mapData.size() > 0);
-    datastream.write((const char*) &mapData[0], mapData.size());
-    octomap.readBinary(datastream);
-  }
 }
 
 
