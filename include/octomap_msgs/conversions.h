@@ -43,21 +43,10 @@
 
 // new conversion functions  
 namespace octomap_msgs{
-
-  /**
-   * @brief Creates a new octree by deserializing from the binary stream mapData,
-   * e.g. from a message or service (full probabilities, .ot file format).
-   * This calls the general file factory of OctoMap, creates a new object and
-   * return an AbstractOcTree* to it. You will need to free the memory when you're done.
-   */  
-  static inline octomap::AbstractOcTree* fullMsgDataToMap(const std::vector<int8_t>& mapData){
-    std::stringstream datastream;
-    assert(mapData.size() > 0);
-    datastream.write((const char*) &mapData[0], mapData.size());
-    return octomap::AbstractOcTree::read(datastream);
-  }
+  // Note: fullMsgDataToMap() deleted, potentially causes confusion 
+  // and (silent) errors in deserialization
   
-/**
+  /**
    * @brief Creates a new octree by deserializing from a message that contains the
    * full map information (i.e., binary is false) and returns an AbstractOcTree*
    * to it. You will need to free the memory when you're done.
@@ -93,21 +82,8 @@ namespace octomap_msgs{
     return octree;      
   }
 
-  /**
-   * \brief Creates a new octree by deserializing from the binary mapData msg.
-   * WARNING: this will not set the resolution properly, use binaryMsgToMap()
-   * instead or set the resolution yourself. Creates a new OcTree object and
-   * returns a pointer to it. You will need to free the memory when you're done.
-   *
-   */
-  static inline octomap::OcTree* binaryMsgDataToMap(const std::vector<int8_t>& mapData){
-    octomap::OcTree* octree = new octomap::OcTree(0.1);
-    std::stringstream datastream;
-    assert(mapData.size() > 0);
-    datastream.write((const char*) &mapData[0], mapData.size());
-    octree->readBinaryData(datastream);
-    return octree;
-  }
+  // Note: binaryMsgDataToMap() deleted, potentially causes confusion 
+  // and (silent) errors in deserialization
   
 
   /**
