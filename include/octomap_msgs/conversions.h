@@ -55,9 +55,10 @@ namespace octomap_msgs{
     octomap::AbstractOcTree* tree = octomap::AbstractOcTree::createTree(msg.id, msg.resolution);    
     if (tree){
       std::stringstream datastream;
-      assert(msg.data.size() > 0);
-      datastream.write((const char*) &msg.data[0], msg.data.size());
-      tree->readData(datastream);          
+      if (msg.data.size() > 0){
+	datastream.write((const char*) &msg.data[0], msg.data.size());
+	tree->readData(datastream);
+      }
     }
     
     return tree;      
@@ -75,9 +76,10 @@ namespace octomap_msgs{
     
     octomap::OcTree* octree = new octomap::OcTree(msg.resolution);    
     std::stringstream datastream;
-    assert(msg.data.size() > 0);
-    datastream.write((const char*) &msg.data[0], msg.data.size());
-    octree->readBinaryData(datastream);          
+    if (msg.data.size() > 0){
+      datastream.write((const char*) &msg.data[0], msg.data.size());
+      octree->readBinaryData(datastream);
+    }
     
     return octree;      
   }
