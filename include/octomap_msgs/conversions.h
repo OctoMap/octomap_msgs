@@ -71,7 +71,7 @@ namespace octomap_msgs{
    * You will need to free the memory when you're done.
    */
   static inline octomap::OcTree* binaryMsgToMap(const Octomap& msg){
-    if (msg.id != "OcTree" || !msg.binary)
+    if (!msg.binary)
       return NULL;
     
     octomap::OcTree* octree = new octomap::OcTree(msg.resolution);    
