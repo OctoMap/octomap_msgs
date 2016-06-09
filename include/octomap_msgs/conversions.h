@@ -40,6 +40,7 @@
 
 #include <octomap/octomap.h>
 #include <octomap_msgs/Octomap.h>
+#include <octomap/ColorOcTree.h>
 
 // new conversion functions  
 namespace octomap_msgs{
@@ -63,6 +64,17 @@ namespace octomap_msgs{
     
     return tree;      
   }
+
+
+  template<class TreeType>
+  void readTree(TreeType* octree, const Octomap& msg){
+    std::stringstream datastream;
+    if (msg.data.size() > 0){
+      datastream.write((const char*) &msg.data[0], msg.data.size());
+      octree->readBinaryData(datastream);
+    }
+  }
+    
   
   /**
    * @brief Creates a new octree by deserializing from msg,
@@ -70,18 +82,21 @@ namespace octomap_msgs{
    * This creates a new OcTree object and returns a pointer to it.
    * You will need to free the memory when you're done.
    */
-  static inline octomap::OcTree* binaryMsgToMap(const Octomap& msg){
+  static inline octomap::AbstractOcTree* binaryMsgToMap(const Octomap& msg){
     if (!msg.binary)
       return NULL;
-    
-    octomap::OcTree* octree = new octomap::OcTree(msg.resolution);    
-    std::stringstream datastream;
-    if (msg.data.size() > 0){
-      datastream.write((const char*) &msg.data[0], msg.data.size());
-      octree->readBinaryData(datastream);
+
+    octomap::AbstractOcTree* tree;
+    if (msg.id == "ColorOcTree"){
+      octomap::ColorOcTree* octree = new octomap::ColorOcTree(msg.resolution);    
+      readTree(octree, msg);
+      tree = octree;
+    } else {
+      octomap::OcTree* octree = new octomap::OcTree(msg.resolution);    
+      readTree(octree, msg);
+      tree = octree;
     }
-    
-    return octree;      
+    return tree;      
   }
 
   // Note: binaryMsgDataToMap() deleted, potentially causes confusion 
