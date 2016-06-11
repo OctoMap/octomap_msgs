@@ -2,8 +2,8 @@
 Changelog for package octomap_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.3 (2016-06-11)
+------------------
 * Fix for binary ColorOcTrees messages
 * Removed check for "OcTree" id in binary deserialization, see Issue `#4 <https://github.com/OctoMap/octomap_msgs/issues/4>`_ and `#5 <https://github.com/OctoMap/octomap_msgs/issues/5>`_
 * Contributors: Armin Hornung, Felix Endres
