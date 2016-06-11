@@ -5,8 +5,8 @@
    This package provides messages and serializations / conversion for the <a href="http://octomap.github.com">OctoMap library</a>.    
   </description>
 
-  <author email="HornungA@informatik.uni-freiburg.de">Armin Hornung</author>
-  <maintainer email="HornungA@informatik.uni-freiburg.de">Armin Hornung</maintainer>
+  <author email="armin@hornung.io">Armin Hornung</author>
+  <maintainer email="armin@hornung.io">Armin Hornung</maintainer>
 
   <license>BSD</license>  
 

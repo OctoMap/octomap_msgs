@@ -2,6 +2,12 @@
 Changelog for package octomap_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix for binary ColorOcTrees messages
+* Removed check for "OcTree" id in binary deserialization, see Issue `#4 <https://github.com/OctoMap/octomap_msgs/issues/4>`_ and `#5 <https://github.com/OctoMap/octomap_msgs/issues/5>`_
+* Contributors: Armin Hornung, Felix Endres
+
 0.3.2 (2014-11-07)
 ------------------
 * Fixing issue octomap_rviz_plugins/#10: Allow deserializing an empty octree
