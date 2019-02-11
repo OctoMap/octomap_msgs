@@ -15,8 +15,6 @@ find_package(rosidl_default_generators REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
-# ament_export_include_directories(include)
-
 set(msg_files
 	"msg/Octomap.msg"
 	"msg/OctomapWithPose.msg"
@@ -35,8 +33,3 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 
 ament_package()
-
-# install(DIRECTORY include/
-#         DESTINATION include
-#         FILES_MATCHING PATTERN "*.h"
-#         PATTERN ".svn" EXCLUDE)
