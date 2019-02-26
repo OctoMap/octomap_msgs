@@ -39,7 +39,7 @@
 #define OCTOMAP_MSGS_CONVERT_MSGS_H
 
 #include <octomap/octomap.h>
-#include <octomap_msgs/msg/octomap.hpp>
+#include <octomap_msgs/msg/octomap.h>
 #include <octomap/ColorOcTree.h>
 
 // new conversion functions
@@ -53,11 +53,11 @@ namespace octomap_msgs{
    * to it. You will need to free the memory when you're done.
    */
   static inline octomap::AbstractOcTree* fullMsgToMap(const Octomap& msg){
-    octomap::AbstractOcTree* tree = octomap::AbstractOcTree::createTree(msg.id, msg.resolution);
+    octomap::AbstractOcTree* tree = octomap::AbstractOcTree::createTree(msg->id, msg->resolution);
     if (tree){
       std::stringstream datastream;
-      if (msg.data.size() > 0){
-	datastream.write((const char*) &msg.data[0], msg.data.size());
+      if (msg->data.size() > 0){
+	datastream.write((const char*) &msg->data[0], msg->data.size());
 	tree->readData(datastream);
       }
     }
@@ -69,8 +69,8 @@ namespace octomap_msgs{
   template<class TreeType>
   void readTree(TreeType* octree, const Octomap& msg){
     std::stringstream datastream;
-    if (msg.data.size() > 0){
-      datastream.write((const char*) &msg.data[0], msg.data.size());
+    if (msg->data.size() > 0){
+      datastream.write((const char*) &msg->data[0], msg->data.size());
       octree->readBinaryData(datastream);
     }
   }
@@ -83,16 +83,16 @@ namespace octomap_msgs{
    * You will need to free the memory when you're done.
    */
   static inline octomap::AbstractOcTree* binaryMsgToMap(const Octomap& msg){
-    if (!msg.binary)
+    if (!msg->binary)
       return NULL;
 
     octomap::AbstractOcTree* tree;
-    if (msg.id == "ColorOcTree"){
-      octomap::ColorOcTree* octree = new octomap::ColorOcTree(msg.resolution);
+    if (msg->id == "ColorOcTree"){
+      octomap::ColorOcTree* octree = new octomap::ColorOcTree(msg->resolution);
       readTree(octree, msg);
       tree = octree;
     } else {
-      octomap::OcTree* octree = new octomap::OcTree(msg.resolution);
+      octomap::OcTree* octree = new octomap::OcTree(msg->resolution);
       readTree(octree, msg);
       tree = octree;
     }
@@ -108,7 +108,7 @@ namespace octomap_msgs{
    * or binary). You will need to free the memory. Return NULL on error.
    **/
   static inline octomap::AbstractOcTree* msgToMap(const Octomap& msg){
-    if (msg.binary)
+    if (msg->binary)
       return binaryMsgToMap(msg);
     else
       return fullMsgToMap(msg);
@@ -149,7 +149,7 @@ namespace octomap_msgs{
     std::stringstream datastream;
     if (!octomap.write(datastream))
       return false;
-
+.
     std::string datastring = datastream.str();
     mapData = std::vector<int8_t>(datastring.begin(), datastring.end());
     return true;
@@ -164,16 +164,16 @@ namespace octomap_msgs{
    */
   template <class OctomapT>
   static inline bool binaryMapToMsg(const OctomapT& octomap, Octomap& msg){
-    msg.resolution = octomap.getResolution();
-    msg.id = octomap.getTreeType();
-    msg.binary = true;
+    msg->resolution = octomap.getResolution();
+    msg->id = octomap.getTreeType();
+    msg->binary = true;
 
     std::stringstream datastream;
     if (!octomap.writeBinaryData(datastream))
       return false;
 
     std::string datastring = datastream.str();
-    msg.data = std::vector<int8_t>(datastring.begin(), datastring.end());
+    msg->data = std::vector<int8_t>(datastring.begin(), datastring.end());
     return true;
   }
 
@@ -186,16 +186,16 @@ namespace octomap_msgs{
    */
   template <class OctomapT>
   static inline bool fullMapToMsg(const OctomapT& octomap, Octomap& msg){
-    msg.resolution = octomap.getResolution();
-    msg.id = octomap.getTreeType();
-    msg.binary = false;
+    msg->resolution = octomap.getResolution();
+    msg->id = octomap.getTreeType();
+    msg->binary = false;
 
     std::stringstream datastream;
     if (!octomap.writeData(datastream))
       return false;
 
     std::string datastring = datastream.str();
-    msg.data = std::vector<int8_t>(datastring.begin(), datastring.end());
+    msg->data = std::vector<int8_t>(datastring.begin(), datastring.end());
     return true;
   }
 
