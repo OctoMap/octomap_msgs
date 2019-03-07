@@ -39,7 +39,7 @@
 #define OCTOMAP_MSGS_CONVERT_MSGS_H
 
 #include <octomap/octomap.h>
-#include <octomap_msgs/msg/octomap.h>
+#include <octomap_msgs/msg/octomap.hpp>
 #include <octomap/ColorOcTree.h>
 
 // new conversion functions
