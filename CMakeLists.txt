@@ -39,4 +39,5 @@ install(DIRECTORY include/
         FILES_MATCHING PATTERN "*.h"
         PATTERN ".svn" EXCLUDE)
 
+ament_export_dependencies(rosidl_default_runtime)
 ament_package()
