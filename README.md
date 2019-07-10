@@ -1,6 +1,5 @@
 octomap_msgs
 ============
-### This fork is part of Acutronic Robotics' efforts in the migration of Moveit! to ROS 2.0
 
 ROS package to provide messages and serializations / conversion for the OctoMap library.
 
