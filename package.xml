@@ -2,11 +2,12 @@
   <name>octomap_msgs</name>
   <version>0.3.4</version>
   <description>
-   This package provides messages and serializations / conversion for the <a href="http://octomap.github.com">OctoMap library</a>.    
+   This package provides messages and serializations / conversion for the <a href="http://octomap.github.io">OctoMap library</a>.    
   </description>
 
   <author email="armin@hornung.io">Armin Hornung</author>
   <maintainer email="armin@hornung.io">Armin Hornung</maintainer>
+  <maintainer email="opensource@wolfgangmerkt.com">Wolfgang Merkt</maintainer>
 
   <license>BSD</license>  
 
