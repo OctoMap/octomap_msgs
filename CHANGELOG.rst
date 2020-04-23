@@ -2,8 +2,8 @@
 Changelog for package octomap_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.5 (2020-04-23)
+------------------
 * Add myself to maintainers
 * Contributors: Wolfgang Merkt
 
