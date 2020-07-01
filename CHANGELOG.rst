@@ -2,6 +2,12 @@
 Changelog for package octomap_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Change version to 2.0.0 for ROS2; update maintainer
+* Porting to ROS2, based on ROS version 0.3.3 `#13 <https://github.com/OctoMap/octomap_msgs/pull/13>`_
+* Contributors: Yan Yu, Ibai Apellaniz, Henning Kayser, Wolfgang Merkt
+
 0.3.3 (2016-06-11)
 ------------------
 * Fix for binary ColorOcTrees messages
