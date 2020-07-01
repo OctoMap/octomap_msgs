@@ -2,8 +2,8 @@
 Changelog for package octomap_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.0 (2020-07-01)
+------------------
 * Change version to 2.0.0 for ROS2; update maintainer
 * Porting to ROS2, based on ROS version 0.3.3 `#13 <https://github.com/OctoMap/octomap_msgs/pull/13>`_
 * Contributors: Yan Yu, Ibai Apellaniz, Henning Kayser, Wolfgang Merkt
