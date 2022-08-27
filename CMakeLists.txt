@@ -36,7 +36,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 
 install(DIRECTORY include/
-        DESTINATION include
+        DESTINATION include/${PROJECT_NAME}
         FILES_MATCHING PATTERN "*.h"
         PATTERN ".svn" EXCLUDE)
 
